@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { DiceModule } from './dice/dice.module';
+import { DiceModule } from './modules/dice.module';
 import { join } from 'path';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { EventsModule } from './modules/events.module';
 
 @Module({
-  imports: [DiceModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [DiceModule, EventsModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {
   static async bootstrap() {

@@ -15,18 +15,23 @@
       suave */ text-align: center; } h1 { color: #e0b3ff; /* Título roxo claro
       */ } p { font-size: 1.5em; color: #d1a3ff; /* Texto roxo claro */ }
       .button { background-color: #6a0dad; /* Fundo roxo */ color: #fff; /*
-      Texto branco */ border: none; padding: 10px 20px; font-size: 1em;
-      border-radius: 5px; cursor: pointer; transition: background-color 0.3s
-      ease; } .button:hover { background-color: #8a2be2; /* Fundo roxo mais
-      claro ao passar o mouse */ }
+      Texto branco */ border: none; padding: 10px 20px; font-size: 1em; cursor:
+      pointer; }
     </style>
   </head>
   <body>
     <div class='container'>
       <h1>Roleta Caótica</h1>
-      <p>Resultado da rolagem: {{result}}</p>
-      <p>{{message}}</p>
-      <button class='button' onclick='window.location.reload();'>Role Novamente</button>
+      <p id='message'>Clique no botão para rolar o dado!</p>
+      <button class='button' onclick='rollDice()'>Rolar Dado</button>
     </div>
+    <script>
+      async function rollDice() { try { const response = await
+      fetch('/events/roll'); const message = await response.text();
+      document.getElementById('message').innerText = message; } catch (error) {
+      console.error('Error:', error);
+      document.getElementById('message').innerText = 'Erro ao rolar o dado.'; }
+      }
+    </script>
   </body>
 </html>
