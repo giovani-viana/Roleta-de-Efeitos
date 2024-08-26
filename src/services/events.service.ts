@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import * as fs from 'fs';
 import * as path from 'path';
+import * as fs from 'fs';
+import { Random, MersenneTwister19937 } from 'random-js';
 
 @Injectable()
 export class EventsService {
   private events: { [key: number]: string };
+  private random: Random;
 
   constructor() {
     try {
@@ -15,6 +17,7 @@ export class EventsService {
       console.error('Error reading events.json file:', error);
       this.events = {};
     }
+    this.random = new Random(MersenneTwister19937.autoSeed());
   }
 
   getEventById(id: number): string {
@@ -22,7 +25,7 @@ export class EventsService {
   }
 
   rollDice(): string {
-    const diceResult = Math.floor(Math.random() * 6) + 1; // Simula um dado de 6 lados
+    const diceResult = this.random.integer(1, 50);
     return this.getEventById(diceResult);
   }
 }
