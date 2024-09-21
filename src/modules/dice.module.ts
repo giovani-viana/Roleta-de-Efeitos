@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { DiceController } from '../controllers/dice.controller';
 import { DiceService } from '../services/dice.service';
-import { EventsService } from '../services/events.service';
+import { EventsModule } from './events.module';
 
 @Module({
+  imports: [EventsModule],
   controllers: [DiceController],
-  providers: [DiceService, EventsService],
+  providers: [DiceService],
 })
 export class DiceModule {}

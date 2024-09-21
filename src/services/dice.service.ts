@@ -1,8 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { Random, MersenneTwister19937 } from 'random-js';
 
 @Injectable()
 export class DiceService {
-  rollDice(sides: number): number {
-    return Math.floor(Math.random() * sides) + 1;
+  private random: Random;
+
+  constructor() {
+    this.random = new Random(MersenneTwister19937.autoSeed());
+  }
+
+  rollDice(sides: number = 50): number {
+    return this.random.integer(1, sides);
   }
 }
